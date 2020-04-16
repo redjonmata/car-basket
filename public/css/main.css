@@ -1,0 +1,36 @@
+.field-create{
+    margin-bottom: 15px;
+}
+.car_time {
+    float: right;
+    text-align: right;
+}
+.card_title {
+    margin-left: -15px;
+    margin-right: -15px;
+}
+.main-title {
+    padding-right: 160px;
+}
+.add-car-button {
+    width: 150px;
+}
+.tags {
+    font-size: 13px;
+    background-color: #e1ecf4;
+    color: #39739d;
+    padding: .4em .5em;
+    margin: 2px 2px 2px 0;
+    border-radius: 3px;
+    text-decoration: none;
+}
+.tags:hover {
+    color: #2c5777;
+    background-color: #d1e5f1;
+    border-color: transparent;
+    text-decoration: none;
+}
+.results {
+    margin-left: 74%;
+    font-size: 16px;
+}
