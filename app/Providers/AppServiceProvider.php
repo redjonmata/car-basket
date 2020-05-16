@@ -17,13 +17,13 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(Cars\CarsRepository::class, function ($app) {
-            if (! config('services.search.enabled')) {
+//            if (! config('services.search.enabled')) {
                 return new Cars\EloquentRepository();
-            }
+//            }
 
-            return new Cars\ElasticsearchRepository(
-                $app->make(Client::class)
-            );
+//            return new Cars\ElasticsearchRepository(
+//                $app->make(Client::class)
+//            );
         });
 
         $this->bindSearchClient();
