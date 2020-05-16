@@ -2,12 +2,12 @@
 
 namespace App;
 
-use App\Search\Searchable;
+//use App\Search\Searchable;
 use Illuminate\Database\Eloquent\Model;
 
 class Car extends Model
 {
-    use Searchable;
+//    use Searchable;
 
     protected $fillable = ['make','model','year','registration','engine','price','visible','user_id'];
 
