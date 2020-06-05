@@ -5,56 +5,46 @@
     <div class="container" id="home-container">
         <div class="row justify-content-center align-items-center pt-4">
             <div class="col-12 col-md-10 col-lg-10 ">
-                <h4 class="form-heading text-center">Update your cars</h4>
-                <input type="hidden" id="ids"value="{{$ids}}">
+                <h4 class="form-heading text-center">Update users</h4>
+                <input type="hidden" id="ids" value="{{$ids}}">
                 <div class="example table-responsive">
                     <table class="table">
                         <tr>
                             <th>Id</th>
-                            <th>Make</th>
-                            <th>Model</th>
-                            <th>Year</th>
-                            <th>Registration</th>
-                            <th>Engine</th>
-                            <th>Price</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Username</th>
+                            <th>Email</th>
                             <th colspan="2">&nbsp&nbspAction</th>
                         </tr>
-                        @foreach($cars as $car)
+                        @foreach($users as $user)
                             <tr>
-                                <td class="alignment">{{ $car->id }}</td>
+                                <td class="alignment">{{ $user->id }}</td>
                                 <td class="alignment">
-                                    <input type="text" class="form-control" value="{{$car->make}}" id="make-{{$car->id}}" name="make">
+                                    <input type="text" class="form-control" value="{{$user->first_name}}" id="first_name-{{$user->id}}" name="first_name">
                                 </td>
                                 <td class="alignment">
-                                    <input type="text" class="form-control" value="{{$car->model}}" id="model-{{$car->id}}" name="model">
+                                    <input type="text" class="form-control" value="{{$user->last_name}}" id="last_name-{{$user->id}}" name="last_name">
                                 </td>
                                 <td class="alignment">
-                                    <input type="text" class="form-control" value="{{$car->year}}" id="year-{{$car->id}}" name="year">
+                                    <input type="text" class="form-control" value="{{$user->username}}" id="username-{{$user->id}}" name="username">
                                 </td>
                                 <td class="alignment">
-                                    <input type="text" class="form-control" value="{{$car->registration}}" id="registration-{{$car->id}}" name="registration">
+                                    <input type="text" class="form-control" value="{{$user->email}}" id="email-{{$user->id}}" name="email">
                                 </td>
                                 <td class="alignment">
-                                    <input type="text" class="form-control" value="{{$car->engine}}" id="engine-{{$car->id}}" name="engine">
-                                </td>
-                                <td class="alignment">
-                                    <input type="text" class="form-control" value="{{$car->price}}" id="price-{{$car->id}}" name="price">
-                                </td>
-                                <td class="alignment">
-                                    <form method="post" action="/cars/{{$car->id}}">
+                                    <form method="post" action="/users/{{$user->id}}">
                                         {{ csrf_field() }}
                                         {{ method_field('PUT') }}
-                                        <input type="hidden" name="hidden_make-{{$car->id}}" id="hidden_make-{{$car->id}}" value="">
-                                        <input type="hidden" name="hidden_model-{{$car->id}}" id="hidden_model-{{$car->id}}" value="">
-                                        <input type="hidden" name="hidden_year-{{$car->id}}" id="hidden_year-{{$car->id}}" value="">
-                                        <input type="hidden" name="hidden_registration-{{$car->id}}" id="hidden_registration-{{$car->id}}" value="">
-                                        <input type="hidden" name="hidden_engine-{{$car->id}}" id="hidden_engine-{{$car->id}}" value="">
-                                        <input type="hidden" name="hidden_price-{{$car->id}}" id="hidden_price-{{$car->id}}" value="">
+                                        <input type="hidden" name="hidden_first_name-{{$user->id}}" id="hidden_first_name-{{$user->id}}" value="">
+                                        <input type="hidden" name="hidden_last_name-{{$user->id}}" id="hidden_last_name-{{$user->id}}" value="">
+                                        <input type="hidden" name="hidden_username-{{$user->id}}" id="hidden_username-{{$user->id}}" value="">
+                                        <input type="hidden" name="hidden_email-{{$user->id}}" id="hidden_email-{{$user->id}}" value="">
                                         <button class="btn btn-primary" type="submit"> Edit </button>
                                     </form>
                                 </td>
                                 <td class="alignment">
-                                    <form method="post" action="/cars/{{$car->id}}">
+                                    <form method="post" action="/users/{{$user->id}}">
                                         {{ csrf_field() }}
                                         {{ method_field('DELETE') }}
                                         <button class="btn btn-danger" type="submit"> Delete </button>
@@ -65,6 +55,9 @@
                     </table>
                 </div>
             </div>
+            <div class="col-10 col-md-10 col-lg-10 mb-2">
+                <a href="/add-user" class="btn btn-primary add-car-button mb-2">Add User</a>
+            </div>
         </div>
     </div>
 
@@ -74,52 +67,36 @@
         var idArray = ids.split(',');
 
         idArray.forEach(function (id) {
-            var hidden_make = $('#hidden_make-'+id)
-            hidden_make.val($('#make-'+id).val())
+            var hidden_first_name = $('#hidden_first_name-'+id)
+            hidden_first_name.val($('#first_name-'+id).val())
 
-            var hidden_model = $('#hidden_model-'+id)
-            hidden_model.val($('#model-'+id).val())
+            var hidden_last_name = $('#hidden_last_name-'+id)
+            hidden_last_name.val($('#last_name-'+id).val())
 
-            var hidden_year = $('#hidden_year-'+id)
-            hidden_year.val($('#year-'+id).val())
+            var hidden_username = $('#hidden_username-'+id)
+            hidden_username.val($('#username-'+id).val())
 
-            var hidden_registration = $('#hidden_registration-'+id)
-            hidden_registration.val($('#registration-'+id).val())
+            var hidden_email = $('#hidden_email-'+id)
+            hidden_email.val($('#email-'+id).val())
 
-            var hidden_engine = $('#hidden_engine-'+id)
-            hidden_engine.val($('#engine-'+id).val())
-
-            var hidden_price = $('#hidden_price-'+id)
-            hidden_price.val($('#price-'+id).val())
-
-            $('#make-'+id).keyup(function () {
-                var hidden_make = $('#hidden_make-'+id)
-                hidden_make.val($(this).val())
+            $('#first_name-'+id).keyup(function () {
+                var hidden_first_name = $('#hidden_first_name-'+id)
+                hidden_first_name.val($(this).val())
             })
 
-            $('#model-'+id).keyup(function () {
-                var hidden_model = $('#hidden_model-'+id)
-                hidden_model.val($(this).val())
+            $('#last_name-'+id).keyup(function () {
+                var hidden_last_name = $('#hidden_last_name-'+id)
+                hidden_last_name.val($(this).val())
             })
 
-            $('#year-'+id).keyup(function () {
-                var hidden_year = $('#hidden_year-'+id)
-                hidden_year.val($(this).val())
+            $('#username-'+id).keyup(function () {
+                var hidden_username = $('#hidden_username-'+id)
+                hidden_username.val($(this).val())
             })
 
-            $('#registration-'+id).keyup(function () {
-                var hidden_registration = $('#hidden_registration-'+id)
-                hidden_registration.val($(this).val())
-            })
-
-            $('#engine-'+id).keyup(function () {
-                var hidden_engine = $('#hidden_engine-'+id)
-                hidden_engine.val($(this).val())
-            })
-
-            $('#price-'+id).keyup(function () {
-                var hidden_price = $('#hidden_price-'+id)
-                hidden_price.val($(this).val())
+            $('#email-'+id).keyup(function () {
+                var hidden_email = $('#hidden_email-'+id)
+                hidden_email.val($(this).val())
             })
         })
     })

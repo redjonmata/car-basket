@@ -14,7 +14,7 @@
                 <h2 class="text-center main-title">Browse Cars</h2>
             </div>
             <div class="col-10 col-md-10 col-lg-10 mb-2">
-                <a href="/add-test" class="btn btn-primary add-car-button mb-2">Add Car</a>
+                <a href="/add-test" class="btn btn-primary add-car-button mb-2">Add User</a>
                 <span class="text-right results">{{$cars->count()}} Results</span>
             </div>
             <div class="col-10 col-md-10 col-lg-10 mb-2">

@@ -13,20 +13,23 @@
 
 Auth::routes();
 
-Route::get('/', 'HomeController@index');
-Route::get('/my-cars', 'HomeController@showCars')->middleware('auth');
+Route::get('/', 'HomeController@index')->middleware('auth');
 
-Route::get('/add-test', 'CarController@show');
-Route::post('/add-test', 'CarController@create');
 
-Route::get('/draft', 'CarController@draft')->middleware('admin');
-Route::put('/draft/car/{id}', 'CarController@update');
-Route::delete('/draft/car/{id}', 'CarController@delete');
-
-Route::get('/tags', 'CarController@getTags');
-Route::get('/cars/tag/{name}', 'CarController@getCars');
-
-Route::put('/cars/{id}', 'HomeController@update');
-Route::delete('/cars/{id}', 'HomeController@delete');
-
-Route::get('/search', 'CarController@search');
+//Route::get('/my-cars', 'HomeController@showCars')->middleware('auth');
+//
+//Route::get('/add-test', 'CarController@show');
+//Route::post('/add-test', 'CarController@create');
+//
+//Route::get('/draft', 'CarController@draft')->middleware('admin');
+//Route::put('/draft/car/{id}', 'CarController@update');
+//Route::delete('/draft/car/{id}', 'CarController@delete');
+//
+//Route::get('/tags', 'CarController@getTags');
+//Route::get('/cars/tag/{name}', 'CarController@getCars');
+//
+Route::put('/users/{id}', 'HomeController@update');
+Route::delete('/users/{id}', 'HomeController@delete');
+Route::get('/add-user', 'HomeController@store');
+//
+//Route::get('/search', 'CarController@search');

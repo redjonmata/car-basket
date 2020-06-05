@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Car;
 use App\Tag;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -12,58 +13,44 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $carTags = [];
+        $users = User::all();
+        $ids = implode(',', $users->pluck('id')->toArray());
 
-        $cars = Car::where('visible',1)->get();
-
-        foreach ($cars as $car) {
-            $carTags[] = [
-                'car' => $car,
-                'tags' => $car->tags()->get()
-            ];
-        }
-
-        return view('home')->with(compact('cars','carTags'));
-    }
-
-    public function showCars()
-    {
-        $user = Auth::user();
-        $cars = $user->cars()->get();
-        $ids = implode(',', $user->cars()->pluck('id')->toArray());
-
-        return view('cars')->with(compact('ids','cars'));
+        return view('cars')->with(compact('users','ids'));
     }
 
     public function update(Request $request, $id)
     {
         $input = $request->input();
-        $car = Car::find($id);
+        $user = User::find($id);
 
-        if (empty($car)) {
+        if (empty($user)) {
             abort('404');
         }
 
-        $car->update([
-            'make' => $input['hidden_make-'.$id],
-            'model' => $input['hidden_model-'.$id],
-            'year' => $input['hidden_year-'.$id],
-            'registration' => $input['hidden_registration-'.$id],
-            'engine' => $input['hidden_engine-'.$id],
-            'price' => $input['hidden_price-'.$id],
+        $user->update([
+            'first_name' => $input['hidden_first_name-'.$id],
+            'last_name' => $input['hidden_last_name-'.$id],
+            'username' => $input['hidden_username-'.$id],
+            'email' => $input['hidden_email-'.$id]
         ]);
 
-        return redirect('/my-cars');
+        return redirect('/');
     }
 
     public function delete($id)
     {
-        $car = Car::find($id);
+        $user = User::find($id);
 
-        if (!empty($car)) {
-            $car->delete();
+        if (!empty($user)) {
+            $user->delete();
         }
 
-        return redirect(url('/my-cars'));
+        return redirect(url('/'));
+    }
+
+    public function create(Request $request)
+    {
+        $input = $request->input();
     }
 }
